@@ -1,4 +1,4 @@
-package com.rl.physics;
+package richardludev.physics;
 
 public abstract class BaseMass {
 

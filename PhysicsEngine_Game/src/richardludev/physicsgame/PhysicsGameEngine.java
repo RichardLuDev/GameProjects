@@ -1,4 +1,4 @@
-package com.rl.physicsgame;
+package richardludev.physicsgame;
 
 import java.lang.reflect.InvocationTargetException;
 

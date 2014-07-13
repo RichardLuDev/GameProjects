@@ -1,4 +1,4 @@
-package com.rl.physicsgame;
+package richardludev.physicsgame;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
