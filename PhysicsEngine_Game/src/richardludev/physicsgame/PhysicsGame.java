@@ -47,7 +47,7 @@ public class PhysicsGame {
         graphicsEngine = new PhysicsGameGraphicsEngine();
         
         frame = new Frame("Physics Engine Game");
-        canvas = graphicsEngine.getCanvas();
+        canvas = graphicsEngine.getGameCanvas();
         
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e){
