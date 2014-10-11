@@ -14,7 +14,7 @@ public class PhysicsGame {
     private Frame frame;
     private Canvas canvas;
     
-    private PhysicsGameGraphicsEngine graphicsEngine;
+    private PhysicsGameGraphicsSystem graphicsEngine;
 
     public static void main(String[] args) {
 
@@ -44,7 +44,7 @@ public class PhysicsGame {
     }
     
     private void setupUI(){
-        graphicsEngine = new PhysicsGameGraphicsEngine();
+        graphicsEngine = new PhysicsGameGraphicsSystem();
         
         frame = new Frame("Physics Engine Game");
         canvas = graphicsEngine.getGameCanvas();
