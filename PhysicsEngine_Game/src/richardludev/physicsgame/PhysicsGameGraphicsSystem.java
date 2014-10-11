@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Richard Lu
  */
-public class PhysicsGameGraphicsEngine {
+public class PhysicsGameGraphicsSystem {
     
     private final int WINDOW_X = 300;
     private final int WINDOW_Y = 300;
@@ -23,7 +23,7 @@ public class PhysicsGameGraphicsEngine {
     //TODO: Temporary Test Sprites
     PhysicsGameSprite[] gameSprites;
     
-    public PhysicsGameGraphicsEngine(){
+    public PhysicsGameGraphicsSystem(){
         
         offScreenImageLock = new Object();
         offscreenImage = new BufferedImage(WINDOW_X+10, WINDOW_Y+10, BufferedImage.TYPE_INT_RGB);
@@ -49,6 +49,8 @@ public class PhysicsGameGraphicsEngine {
     
     private void populateOffscreenImage(){
         Graphics2D offscreenGraphics = (Graphics2D)offscreenImage.getGraphics();
+        offscreenGraphics.clearRect(0, 0, offscreenImage.getWidth(), offscreenImage.getHeight());
+        
         for(PhysicsGameSprite gameSprite : gameSprites){
             gameSprite.update();
             gameSprite.draw(offscreenGraphics);
@@ -62,9 +64,9 @@ public class PhysicsGameGraphicsEngine {
     @SuppressWarnings("serial")
     private class PhysicsGameCanvas extends Canvas{
         
-        PhysicsGameGraphicsEngine graphicsEngine;
+        PhysicsGameGraphicsSystem graphicsEngine;
         
-        public PhysicsGameCanvas(PhysicsGameGraphicsEngine graphicsEngine) {
+        public PhysicsGameCanvas(PhysicsGameGraphicsSystem graphicsEngine) {
             this.graphicsEngine = graphicsEngine;
         }
         
