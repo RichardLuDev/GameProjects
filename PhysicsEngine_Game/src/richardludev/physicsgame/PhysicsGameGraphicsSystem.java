@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
  */
 public class PhysicsGameGraphicsSystem {
     
-    private final int WINDOW_X = 300;
-    private final int WINDOW_Y = 300;
+    private final int WINDOW_X = 800;
+    private final int WINDOW_Y = 600;
 
     //TODO: May not need this lock if no immediately noticeable problems.
     private Object offScreenImageLock;

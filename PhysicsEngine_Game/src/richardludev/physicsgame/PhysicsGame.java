@@ -6,15 +6,20 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import richardludev.physics.PhysicsEngine;
+
 /**
  * @author Richard Lu
  */
 public class PhysicsGame {
     
+    private static final int TIME_STEP = 100;
+    
     private Frame frame;
     private Canvas canvas;
     
-    private PhysicsGameGraphicsSystem graphicsEngine;
+    private PhysicsGameGraphicsSystem graphicsSystem;
+    private PhysicsEngine physicsEngine;
 
     public static void main(String[] args) {
 
@@ -26,6 +31,7 @@ public class PhysicsGame {
     }
 
     public void run() {
+        setupPhysics();
         setupUI();
         displayUI();
         
@@ -34,7 +40,8 @@ public class PhysicsGame {
     
     private void runGameLoop(){
         while(true){
-            graphicsEngine.update();
+            graphicsSystem.update();
+            physicsEngine.update(TIME_STEP);
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -42,12 +49,16 @@ public class PhysicsGame {
             }
         }
     }
+  
+    private void setupPhysics(){
+        physicsEngine = new PhysicsEngine();
+    }
     
     private void setupUI(){
-        graphicsEngine = new PhysicsGameGraphicsSystem();
+        graphicsSystem = new PhysicsGameGraphicsSystem();
         
         frame = new Frame("Physics Engine Game");
-        canvas = graphicsEngine.getGameCanvas();
+        canvas = graphicsSystem.getGameCanvas();
         
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e){
