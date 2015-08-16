@@ -5,14 +5,19 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
+
+import richardludev.physics.EntityDef;
+import richardludev.physics.IForceSourcePositionBased;
+import richardludev.physics.PhysicsEngine;
 
 /**
  * @author Richard Lu
  */
 public class PhysicsGameGraphicsSystem {
     
-    private final int WINDOW_X = 800;
-    private final int WINDOW_Y = 600;
+    public static final int WINDOW_X = 800;
+    public static final int WINDOW_Y = 600;
 
     //TODO: May not need this lock if no immediately noticeable problems.
     private Object offScreenImageLock;
@@ -20,26 +25,18 @@ public class PhysicsGameGraphicsSystem {
     
     private PhysicsGameCanvas gameCanvas;
     
-    //TODO: Temporary Test Sprites
-    PhysicsGameSprite[] gameSprites;
-    
     public PhysicsGameGraphicsSystem(){
         
         offScreenImageLock = new Object();
         offscreenImage = new BufferedImage(WINDOW_X+10, WINDOW_Y+10, BufferedImage.TYPE_INT_RGB);
-        
-        gameSprites = new PhysicsGameSprite[10];
-        for(int i = 0; i < gameSprites.length; i++){
-            gameSprites[i] = new PhysicsGameSprite(0, 0, 20);
-        }
         
         gameCanvas = new PhysicsGameCanvas(this);
         gameCanvas.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));
         gameCanvas.setFocusable(true);
     }
     
-    public void update(){
-        populateOffscreenImage();
+    public void update(PhysicsEngine physicsEngine){
+        populateOffscreenImage(physicsEngine);
         gameCanvas.repaint();
     }
     
@@ -47,13 +44,18 @@ public class PhysicsGameGraphicsSystem {
         return gameCanvas;
     }
     
-    private void populateOffscreenImage(){
+    private void populateOffscreenImage(PhysicsEngine physicsEngine){
         Graphics2D offscreenGraphics = (Graphics2D)offscreenImage.getGraphics();
         offscreenGraphics.clearRect(0, 0, offscreenImage.getWidth(), offscreenImage.getHeight());
+     
+        EntityDef[] entityDefs = physicsEngine.getEntities();
+        for(EntityDef entityDef : entityDefs){
+            offscreenGraphics.drawOval((int)entityDef.getX(), (int)entityDef.getY(), 
+                                       (int)entityDef.getMass(), (int)entityDef.getMass());
+        }
         
-        for(PhysicsGameSprite gameSprite : gameSprites){
-            gameSprite.update();
-            gameSprite.draw(offscreenGraphics);
+        IForceSourcePositionBased[] forceSources = physicsEngine.getForceSourcePositionBased();
+        for(IForceSourcePositionBased forceSource : forceSources){
         }
     }
     
