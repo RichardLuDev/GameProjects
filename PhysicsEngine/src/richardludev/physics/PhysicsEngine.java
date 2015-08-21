@@ -93,8 +93,8 @@ public class PhysicsEngine {
         entity.mass = entityDef.getMass();
         entity.x = entityDef.getX();
         entity.y = entityDef.getY();
-        entity.vx = 0;
-        entity.vy = 0;
+        entity.vx = entityDef.getVX();
+        entity.vy = entityDef.getVY();
         entity.ax = 0;
         entity.ay = 0;
         

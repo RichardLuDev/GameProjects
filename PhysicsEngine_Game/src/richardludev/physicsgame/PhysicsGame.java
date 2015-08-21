@@ -17,7 +17,7 @@ import richardludev.physics.PhysicsEngine;
  */
 public class PhysicsGame {
     
-    private static final int TIME_STEP = 100;
+    private static final int TIME_STEP = 50;
     
     private Frame frame;
     private Canvas canvas;
@@ -47,7 +47,7 @@ public class PhysicsGame {
             physicsEngine.update(TIME_STEP);
             graphicsSystem.update(physicsEngine);
             try {
-                Thread.sleep(100);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -56,19 +56,7 @@ public class PhysicsGame {
   
     private void setupPhysics(){
         physicsEngine = new PhysicsEngine();
-        
-        //TODO: temporary generation of physics entities.
-        Random random = new Random(9001);
-        int mass = 10;
-        for(long i = 0; i < 10; i++){
-            int x = random.nextInt(PhysicsGameGraphicsSystem.WINDOW_X);
-            int y = random.nextInt(PhysicsGameGraphicsSystem.WINDOW_Y);
-            EntityDef entityDef = new EntityDef(i, mass, x, y);
-            physicsEngine.addEntity(entityDef);
-        }
-        
-        IForceSourcePositionBased forceSource = new ForceSourceGravity(PhysicsGameGraphicsSystem.WINDOW_X/2, PhysicsGameGraphicsSystem.WINDOW_Y/2, 100000);
-        physicsEngine.addForceSource(forceSource);
+        PhysicsGameScenarioGenerator.GenerateOrbitScenario(physicsEngine);
     }
     
     private void setupUI(){

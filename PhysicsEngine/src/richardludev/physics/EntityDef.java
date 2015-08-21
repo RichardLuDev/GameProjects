@@ -4,6 +4,7 @@ public class EntityDef {
     
     private long id;
     private double x, y;
+    private double vx, vy;
     private double mass;
     
     public EntityDef(long id, double mass, double x, double y){
@@ -11,6 +12,12 @@ public class EntityDef {
         this.mass = mass;
         this.x = x;
         this.y = y;
+    }
+    
+    public EntityDef(long id, double mass, double x, double y, double vx, double vy){
+        this(id, mass, x, y);
+        this.vx = vx;
+        this.vy = vy;
     }
     
     public long getID(){
@@ -29,4 +36,11 @@ public class EntityDef {
         return y;
     }
     
+    public double getVX(){
+        return vx;
+    }
+    
+    public double getVY(){
+        return vy;
+    }
 }
