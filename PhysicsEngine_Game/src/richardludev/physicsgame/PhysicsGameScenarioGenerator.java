@@ -2,23 +2,41 @@ package richardludev.physicsgame;
 
 import java.util.Random;
 
-import richardludev.physics.EntityDef;
+import richardludev.componentmodel.Acceleration2DComponent;
+import richardludev.componentmodel.Position2DComponent;
+import richardludev.componentmodel.Velocity2DComponent;
 import richardludev.physics.ForceSourceGravity;
 import richardludev.physics.IForceSourcePositionBased;
+import richardludev.physics.PhysicsComponent;
 import richardludev.physics.PhysicsEngine;
 
 public class PhysicsGameScenarioGenerator {
     
-    public static void GenerateOrbitScenario(PhysicsEngine physicsEngine){
+    public static void GenerateOrbitScenario(EntityManager entityManager, PhysicsEngine physicsEngine){
         Random random = new Random(9001);
+        
         double mass = 10;
         double y = PhysicsGameGraphicsSystem.WINDOW_Y/2;
-        double vx = 0;
+        double x, vy;
+        
         for(long i = 0; i < 10; i++){
-            double x = random.nextInt(PhysicsGameGraphicsSystem.WINDOW_X);
-            double vy = 1000/(x - PhysicsGameGraphicsSystem.WINDOW_X/2);
-            EntityDef entityDef = new EntityDef(i, mass, x, y, vx, vy);
-            physicsEngine.addEntity(entityDef);
+            x = random.nextInt(PhysicsGameGraphicsSystem.WINDOW_X);
+            vy = 1000/(x - PhysicsGameGraphicsSystem.WINDOW_X/2);
+            
+            PhysicsComponent phyComponent = new PhysicsComponent(i);
+            Acceleration2DComponent accelComponent = new Acceleration2DComponent(i);
+            Velocity2DComponent velComponent = new Velocity2DComponent(i);
+            Position2DComponent posComponent = new Position2DComponent(i);
+            
+            phyComponent.setMass(mass);
+            velComponent.setVY(vy);
+            posComponent.setX(x);
+            posComponent.setY(y);
+            
+            entityManager.addPhysicsComponent(phyComponent);
+            entityManager.addAcceleration2DComponent(accelComponent);
+            entityManager.addVelocity2DComponent(velComponent);
+            entityManager.addPosition2DComponent(posComponent);
         }
         
         IForceSourcePositionBased forceSource = new ForceSourceGravity(PhysicsGameGraphicsSystem.WINDOW_X/2, PhysicsGameGraphicsSystem.WINDOW_Y/2, 100000);

@@ -1,15 +1,10 @@
 package richardludev.physicsgame;
 
 import java.awt.Canvas;
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Random;
 
-import richardludev.physics.EntityDef;
-import richardludev.physics.ForceSourceGravity;
-import richardludev.physics.IForceSourcePositionBased;
 import richardludev.physics.PhysicsEngine;
 
 /**
@@ -22,16 +17,19 @@ public class PhysicsGame {
     private Frame frame;
     private Canvas canvas;
     
+    private EntityManager entityManager;
+    
     private PhysicsGameGraphicsSystem graphicsSystem;
     private PhysicsEngine physicsEngine;
 
     public static void main(String[] args) {
-
+        
         PhysicsGame game = new PhysicsGame();
         game.run();
     }
 
     public PhysicsGame() {
+        entityManager = new EntityManager();
     }
 
     public void run() {
@@ -45,7 +43,7 @@ public class PhysicsGame {
     private void runGameLoop(){
         while(true){
             physicsEngine.update(TIME_STEP);
-            graphicsSystem.update(physicsEngine);
+            graphicsSystem.update(entityManager);
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
@@ -55,8 +53,8 @@ public class PhysicsGame {
     }
   
     private void setupPhysics(){
-        physicsEngine = new PhysicsEngine();
-        PhysicsGameScenarioGenerator.GenerateOrbitScenario(physicsEngine);
+        physicsEngine = new PhysicsEngine(entityManager);
+        PhysicsGameScenarioGenerator.GenerateOrbitScenario(entityManager, physicsEngine);
     }
     
     private void setupUI(){

@@ -16,11 +16,18 @@ public class Velocity2DComponent extends ComponentBase{
         this.vx = vx;
     }
     
+    public void addToVX(double deltaVx){
+        this.vx += deltaVx;
+    }
+    
     public double getVY(){
         return this.vy;
     }
     
     public void setVY(double vy){
         this.vy = vy;
+    }
+    public void addToVY(double deltaVy){
+        this.vy += deltaVy;
     }
 }

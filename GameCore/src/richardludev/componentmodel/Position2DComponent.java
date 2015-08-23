@@ -16,12 +16,20 @@ public class Position2DComponent extends ComponentBase{
         this.x = x;
     }
     
+    public void addToX(double deltaX){
+        this.x += deltaX;
+    }
+    
     public double getY(){
         return y;
     }
     
     public void setY(double y){
         this.y = y;
+    }
+    
+    public void addToY(double deltaY){
+        this.y += deltaY;
     }
     
 }

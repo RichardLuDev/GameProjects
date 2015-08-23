@@ -7,9 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import richardludev.physics.EntityDef;
-import richardludev.physics.IForceSourcePositionBased;
-import richardludev.physics.PhysicsEngine;
+import richardludev.componentmodel.Position2DComponent;
 
 /**
  * @author Richard Lu
@@ -35,8 +33,8 @@ public class PhysicsGameGraphicsSystem {
         gameCanvas.setFocusable(true);
     }
     
-    public void update(PhysicsEngine physicsEngine){
-        populateOffscreenImage(physicsEngine);
+    public void update(EntityManager entityManager){
+        populateOffscreenImage(entityManager);
         gameCanvas.repaint();
     }
     
@@ -44,18 +42,15 @@ public class PhysicsGameGraphicsSystem {
         return gameCanvas;
     }
     
-    private void populateOffscreenImage(PhysicsEngine physicsEngine){
+    private void populateOffscreenImage(EntityManager entityManager){
         Graphics2D offscreenGraphics = (Graphics2D)offscreenImage.getGraphics();
         offscreenGraphics.clearRect(0, 0, offscreenImage.getWidth(), offscreenImage.getHeight());
      
-        EntityDef[] entityDefs = physicsEngine.getEntities();
-        for(EntityDef entityDef : entityDefs){
-            offscreenGraphics.drawOval((int)entityDef.getX(), (int)entityDef.getY(), 
-                                       (int)entityDef.getMass(), (int)entityDef.getMass());
-        }
+        List<Position2DComponent> posComponents = entityManager.getPosition2DComponents();
         
-        IForceSourcePositionBased[] forceSources = physicsEngine.getForceSourcePositionBased();
-        for(IForceSourcePositionBased forceSource : forceSources){
+        for(Position2DComponent posComponent : posComponents){
+            offscreenGraphics.drawOval((int)posComponent.getX(), (int)posComponent.getY(), 
+                                        10, 10);
         }
     }
     
