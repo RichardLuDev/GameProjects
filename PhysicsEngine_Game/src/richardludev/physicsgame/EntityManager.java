@@ -6,33 +6,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import richardludev.componentmodel.Acceleration2DComponent;
+import richardludev.componentmodel.Movement2DComponent;
 import richardludev.componentmodel.Position2DComponent;
-import richardludev.componentmodel.Velocity2DComponent;
 import richardludev.physics.IPhysicsEntityManager;
 import richardludev.physics.PhysicsComponent;
 
 public class EntityManager implements IPhysicsEntityManager {
 
     private List<PhysicsComponent> phyComponents;
-    private List<Acceleration2DComponent> accelComponents;
-    private List<Velocity2DComponent> velComponents;
+    private List<Movement2DComponent> moveComponents;
     private List<Position2DComponent> posComponents;
     
     private Map<Long, PhysicsComponent> phyComponentsMap;
-    private Map<Long, Acceleration2DComponent> accelComponentsMap;
-    private Map<Long, Velocity2DComponent> velComponentsMap;
+    private Map<Long, Movement2DComponent> moveComponentsMap;
     private Map<Long, Position2DComponent> posComponentsMap;
     
     public EntityManager(){
         phyComponents = new ArrayList<PhysicsComponent>();
-        accelComponents = new ArrayList<Acceleration2DComponent>();
-        velComponents = new ArrayList<Velocity2DComponent>();
+        moveComponents = new ArrayList<Movement2DComponent>();
         posComponents = new ArrayList<Position2DComponent>();
         
         phyComponentsMap = new HashMap<Long, PhysicsComponent>();
-        accelComponentsMap = new HashMap<Long, Acceleration2DComponent>();
-        velComponentsMap = new HashMap<Long, Velocity2DComponent>();
+        moveComponentsMap = new HashMap<Long, Movement2DComponent>();
         posComponentsMap = new HashMap<Long, Position2DComponent>();
     }
     
@@ -55,37 +50,20 @@ public class EntityManager implements IPhysicsEntityManager {
     }
 
     @Override
-    public List<Acceleration2DComponent> getAcceleration2DComponents() {
-        List<Acceleration2DComponent> components = new ArrayList<Acceleration2DComponent>(accelComponents);
+    public List<Movement2DComponent> getMovement2DComponents() {
+        List<Movement2DComponent> components = new ArrayList<Movement2DComponent>(moveComponents);
         return components;
     }
 
     @Override
-    public Acceleration2DComponent getAcceleration2DComponent(long id) {
-        return accelComponentsMap.get(id);
+    public Movement2DComponent getMovement2DComponent(long id) {
+        return moveComponentsMap.get(id);
     }
     
-    public void addAcceleration2DComponent(Acceleration2DComponent component){
-        this.accelComponentsMap.put(component.GetID(),component);
-        this.accelComponents.add(component);
-        Collections.sort(this.accelComponents);
-    }
-
-    @Override
-    public List<Velocity2DComponent> getVelocity2DComponents() {
-        List<Velocity2DComponent> components = new ArrayList<Velocity2DComponent>(velComponents);
-        return components;
-    }
-
-    @Override
-    public Velocity2DComponent getVelocity2DComponent(long id) {
-        return velComponentsMap.get(id);
-    }
-    
-    public void addVelocity2DComponent(Velocity2DComponent component){
-        this.velComponentsMap.put(component.GetID(),component);
-        this.velComponents.add(component);
-        Collections.sort(this.velComponents);
+    public void addMovement2DComponent(Movement2DComponent component){
+        this.moveComponentsMap.put(component.GetID(),component);
+        this.moveComponents.add(component);
+        Collections.sort(this.moveComponents);
     }
 
     @Override

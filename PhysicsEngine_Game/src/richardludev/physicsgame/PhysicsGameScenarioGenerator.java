@@ -2,9 +2,8 @@ package richardludev.physicsgame;
 
 import java.util.Random;
 
-import richardludev.componentmodel.Acceleration2DComponent;
+import richardludev.componentmodel.Movement2DComponent;
 import richardludev.componentmodel.Position2DComponent;
-import richardludev.componentmodel.Velocity2DComponent;
 import richardludev.physics.ForceSourceGravity;
 import richardludev.physics.IForceSourcePositionBased;
 import richardludev.physics.PhysicsComponent;
@@ -24,18 +23,16 @@ public class PhysicsGameScenarioGenerator {
             vy = 1000/(x - PhysicsGameGraphicsSystem.WINDOW_X/2);
             
             PhysicsComponent phyComponent = new PhysicsComponent(i);
-            Acceleration2DComponent accelComponent = new Acceleration2DComponent(i);
-            Velocity2DComponent velComponent = new Velocity2DComponent(i);
+            Movement2DComponent moveComponent = new Movement2DComponent(i);
             Position2DComponent posComponent = new Position2DComponent(i);
             
             phyComponent.setMass(mass);
-            velComponent.setVY(vy);
+            moveComponent.setVY(vy);
             posComponent.setX(x);
             posComponent.setY(y);
             
             entityManager.addPhysicsComponent(phyComponent);
-            entityManager.addAcceleration2DComponent(accelComponent);
-            entityManager.addVelocity2DComponent(velComponent);
+            entityManager.addMovement2DComponent(moveComponent);
             entityManager.addPosition2DComponent(posComponent);
         }
         

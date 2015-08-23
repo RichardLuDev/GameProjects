@@ -1,9 +1,6 @@
 package richardludev.physics;
 
-import richardludev.componentmodel.Acceleration2DComponent;
 import richardludev.componentmodel.ComponentBase;
-import richardludev.componentmodel.Position2DComponent;
-import richardludev.componentmodel.Velocity2DComponent;
 
 public class PhysicsComponent extends ComponentBase{
     
