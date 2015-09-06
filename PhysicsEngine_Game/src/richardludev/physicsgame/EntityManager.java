@@ -11,24 +11,28 @@ import richardludev.componentmodel.Position2DComponent;
 import richardludev.physics.IPhysicsEntityManager;
 import richardludev.physics.PhysicsComponent;
 
-public class EntityManager implements IPhysicsEntityManager {
+public class EntityManager implements IPhysicsEntityManager, ILogicEntityManager {
 
     private List<PhysicsComponent> phyComponents;
     private List<Movement2DComponent> moveComponents;
     private List<Position2DComponent> posComponents;
+    private List<LogicComponent> logicComponents;
     
     private Map<Long, PhysicsComponent> phyComponentsMap;
     private Map<Long, Movement2DComponent> moveComponentsMap;
     private Map<Long, Position2DComponent> posComponentsMap;
+    private Map<Long, LogicComponent> logicComponentsMap;
     
     public EntityManager(){
         phyComponents = new ArrayList<PhysicsComponent>();
         moveComponents = new ArrayList<Movement2DComponent>();
         posComponents = new ArrayList<Position2DComponent>();
+        logicComponents = new ArrayList<LogicComponent>();
         
         phyComponentsMap = new HashMap<Long, PhysicsComponent>();
         moveComponentsMap = new HashMap<Long, Movement2DComponent>();
         posComponentsMap = new HashMap<Long, Position2DComponent>();
+        logicComponentsMap = new HashMap<Long, LogicComponent>();
     }
     
     
@@ -81,5 +85,22 @@ public class EntityManager implements IPhysicsEntityManager {
         this.posComponentsMap.put(component.GetID(),component);
         this.posComponents.add(component);
         Collections.sort(this.posComponents);
+    }
+    
+    @Override
+    public List<LogicComponent> getGameLogicComponents() {
+        List<LogicComponent> components = new ArrayList<LogicComponent>(logicComponents);
+        return components;
+    }
+
+    @Override
+    public LogicComponent getGameLogicComponent(long id) {
+        return logicComponentsMap.get(id);
+    }
+    
+    public void addGameLogicComponent(LogicComponent component){
+        this.logicComponentsMap.put(component.GetID(),component);
+        this.logicComponents.add(component);
+        Collections.sort(this.logicComponents);
     }
 }

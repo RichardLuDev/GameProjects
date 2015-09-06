@@ -4,21 +4,21 @@ import java.util.Random;
 
 import richardludev.componentmodel.Movement2DComponent;
 import richardludev.componentmodel.Position2DComponent;
-import richardludev.physics.ForceSourceGravity;
-import richardludev.physics.IForceSourcePositionBased;
 import richardludev.physics.PhysicsComponent;
-import richardludev.physics.PhysicsEngine;
+import richardludev.physics.PhysicsSystem;
 
 public class PhysicsGameScenarioGenerator {
     
-    public static void GenerateOrbitScenario(EntityManager entityManager, PhysicsEngine physicsEngine){
+    public static void GenerateOrbitScenario(EntityManager entityManager, PhysicsSystem physicsEngine){
+        long i = 0;
+        
         Random random = new Random(9001);
         
         double mass = 10;
         double y = PhysicsGameGraphicsSystem.WINDOW_Y/2;
         double x, vy;
         
-        for(long i = 0; i < 10; i++){
+        for(; i < 10; i++){
             x = random.nextInt(PhysicsGameGraphicsSystem.WINDOW_X);
             vy = 1000/(x - PhysicsGameGraphicsSystem.WINDOW_X/2);
             
@@ -36,7 +36,13 @@ public class PhysicsGameScenarioGenerator {
             entityManager.addPosition2DComponent(posComponent);
         }
         
-        IForceSourcePositionBased forceSource = new ForceSourceGravity(PhysicsGameGraphicsSystem.WINDOW_X/2, PhysicsGameGraphicsSystem.WINDOW_Y/2, 100000);
-        physicsEngine.addForceSource(forceSource);
+        Position2DComponent posComponent = new Position2DComponent(i);
+        LogicComponent logicComponent = new GravityLogicComponent(i, entityManager, physicsEngine);
+        
+        posComponent.setX(PhysicsGameGraphicsSystem.WINDOW_X/2);
+        posComponent.setY(PhysicsGameGraphicsSystem.WINDOW_Y/2);
+        
+        entityManager.addPosition2DComponent(posComponent);
+        entityManager.addGameLogicComponent(logicComponent);
     }
 }

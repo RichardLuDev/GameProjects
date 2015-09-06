@@ -5,7 +5,7 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import richardludev.physics.PhysicsEngine;
+import richardludev.physics.PhysicsSystem;
 
 /**
  * @author Richard Lu
@@ -13,14 +13,16 @@ import richardludev.physics.PhysicsEngine;
 public class PhysicsGame {
     
     private static final int TIME_STEP = 50;
+    private static final double TIME_STEP_SEC = 0.001*TIME_STEP;
     
     private Frame frame;
     private Canvas canvas;
     
     private EntityManager entityManager;
     
+    private LogicSystem logicSystem;
     private PhysicsGameGraphicsSystem graphicsSystem;
-    private PhysicsEngine physicsEngine;
+    private PhysicsSystem physicsEngine;
 
     public static void main(String[] args) {
         
@@ -33,6 +35,10 @@ public class PhysicsGame {
     }
 
     public void run() {
+        
+        PhysicsGameScenarioGenerator.GenerateOrbitScenario(entityManager, physicsEngine);
+        
+        setupLogic();
         setupPhysics();
         setupUI();
         displayUI();
@@ -42,7 +48,7 @@ public class PhysicsGame {
     
     private void runGameLoop(){
         while(true){
-            physicsEngine.update(TIME_STEP);
+            physicsEngine.update(TIME_STEP_SEC);
             graphicsSystem.update(entityManager);
             try {
                 Thread.sleep(1);
@@ -52,9 +58,12 @@ public class PhysicsGame {
         }
     }
   
+    private void setupLogic(){
+        logicSystem = new LogicSystem(entityManager);
+    }
+    
     private void setupPhysics(){
-        physicsEngine = new PhysicsEngine(entityManager);
-        PhysicsGameScenarioGenerator.GenerateOrbitScenario(entityManager, physicsEngine);
+        physicsEngine = new PhysicsSystem(entityManager);
     }
     
     private void setupUI(){
