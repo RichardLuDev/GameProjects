@@ -7,11 +7,11 @@ public abstract class ComponentBase implements Comparable<ComponentBase> {
         this.ID = id;
     }
    
-    public long GetID(){
+    public long getID(){
         return this.ID;
     }
     
     public int compareTo(ComponentBase other){
-        return Long.compare(this.GetID(), other.GetID());
+        return Long.compare(this.getID(), other.getID());
     }
 }

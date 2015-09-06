@@ -7,12 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import richardludev.componentmodel.Position2DComponent;
+import richardludev.componentmodel.PositionComponent;
 
 /**
  * @author Richard Lu
  */
-public class PhysicsGameGraphicsSystem {
+public class GraphicsSystem {
     
     public static final int WINDOW_X = 800;
     public static final int WINDOW_Y = 600;
@@ -23,7 +23,7 @@ public class PhysicsGameGraphicsSystem {
     
     private PhysicsGameCanvas gameCanvas;
     
-    public PhysicsGameGraphicsSystem(){
+    public GraphicsSystem(){
         
         offScreenImageLock = new Object();
         offscreenImage = new BufferedImage(WINDOW_X+10, WINDOW_Y+10, BufferedImage.TYPE_INT_RGB);
@@ -46,9 +46,9 @@ public class PhysicsGameGraphicsSystem {
         Graphics2D offscreenGraphics = (Graphics2D)offscreenImage.getGraphics();
         offscreenGraphics.clearRect(0, 0, offscreenImage.getWidth(), offscreenImage.getHeight());
      
-        List<Position2DComponent> posComponents = entityManager.getPosition2DComponents();
+        List<PositionComponent> posComponents = entityManager.getPositionComponents();
         
-        for(Position2DComponent posComponent : posComponents){
+        for(PositionComponent posComponent : posComponents){
             offscreenGraphics.drawOval((int)posComponent.getX(), (int)posComponent.getY(), 
                                         10, 10);
         }
@@ -61,9 +61,9 @@ public class PhysicsGameGraphicsSystem {
     @SuppressWarnings("serial")
     private class PhysicsGameCanvas extends Canvas{
         
-        PhysicsGameGraphicsSystem graphicsEngine;
+        GraphicsSystem graphicsEngine;
         
-        public PhysicsGameCanvas(PhysicsGameGraphicsSystem graphicsEngine) {
+        public PhysicsGameCanvas(GraphicsSystem graphicsEngine) {
             this.graphicsEngine = graphicsEngine;
         }
         

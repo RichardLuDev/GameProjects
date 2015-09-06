@@ -1,10 +1,10 @@
 package richardludev.componentmodel;
 
-public class Position2DComponent extends ComponentBase{
+public class PositionComponent extends ComponentBase{
 
     private double x,y;
     
-    public Position2DComponent(long id) {
+    public PositionComponent(long id) {
         super(id);
     }
     

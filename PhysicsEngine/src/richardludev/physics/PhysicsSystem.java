@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import richardludev.componentmodel.ComponentSystem;
-import richardludev.componentmodel.Movement2DComponent;
-import richardludev.componentmodel.Position2DComponent;
+import richardludev.componentmodel.MovementComponent;
+import richardludev.componentmodel.PositionComponent;
 
 public class PhysicsSystem implements ComponentSystem{
     
@@ -23,23 +23,20 @@ public class PhysicsSystem implements ComponentSystem{
         this.forces.add(targetForce);
     }
     
-    public void clearForces(){
-        this.forces.clear();
-    }
-    
     @Override
     public void update(double timeStep){
         clearAccelerations();
         resolveAccelerations();
         resolveVelocities(timeStep);
         resolvePositions(timeStep);
+        clearForces();
     }
 
     private void clearAccelerations(){
-        List<Movement2DComponent> moveComponents = entityManager.getMovement2DComponents();
-        for (Movement2DComponent moveComponent : moveComponents){
-            moveComponent.setAX(0);
-            moveComponent.setAY(0);
+        List<PhysicsComponent> physicsComponents = entityManager.getPhysicsComponents();
+        for (PhysicsComponent physicsComponent : physicsComponents){
+            physicsComponent.getMovementComponent().setAX(0);
+            physicsComponent.getMovementComponent().setAY(0);
         }
     }
     
@@ -50,27 +47,33 @@ public class PhysicsSystem implements ComponentSystem{
     }
 
     private void resolveVelocities(double timeStep){
-        List<Movement2DComponent> moveComponents = entityManager.getMovement2DComponents();
+        List<PhysicsComponent> physicsComponents = entityManager.getPhysicsComponents();
         
-        for (Movement2DComponent moveComponent : moveComponents){
+        for (PhysicsComponent physicsComponent : physicsComponents){
+            MovementComponent moveComponent = physicsComponent.getMovementComponent();
             moveComponent.addToVX(moveComponent.getAX()*timeStep);
             moveComponent.addToVY(moveComponent.getAY()*timeStep);
         }
     }
     
     private void resolvePositions(double timeStep){
-        List<Position2DComponent> posComponents = entityManager.getPosition2DComponents();
+        List<PhysicsComponent> physicsComponents = entityManager.getPhysicsComponents();
         
-        for (Position2DComponent posComponent : posComponents){
-            Movement2DComponent moveComponent = entityManager.getMovement2DComponent(posComponent.GetID());
+        for (PhysicsComponent physicsComponent : physicsComponents){
+            MovementComponent moveComponent = physicsComponent.getMovementComponent();
+            PositionComponent posComponent = physicsComponent.getPositionComponent();
             posComponent.addToX(moveComponent.getVX()*timeStep);
             posComponent.addToY(moveComponent.getVY()*timeStep);
         }
     }
     
+    private void clearForces(){
+        this.forces.clear();
+    }
+    
     private void applyForceToEntity(Long id, Force force){
         PhysicsComponent phyComponent = entityManager.getPhysicsComponent(id);
-        Movement2DComponent moveComponent = entityManager.getMovement2DComponent(id);
+        MovementComponent moveComponent = phyComponent.getMovementComponent();
         moveComponent.addToAX(force.getXComp()/phyComponent.getMass());
         moveComponent.addToAY(force.getYComp()/phyComponent.getMass());
     }

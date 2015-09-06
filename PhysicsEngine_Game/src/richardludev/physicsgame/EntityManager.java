@@ -6,32 +6,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import richardludev.componentmodel.Movement2DComponent;
-import richardludev.componentmodel.Position2DComponent;
+import richardludev.componentmodel.MovementComponent;
+import richardludev.componentmodel.PositionComponent;
 import richardludev.physics.IPhysicsEntityManager;
 import richardludev.physics.PhysicsComponent;
 
 public class EntityManager implements IPhysicsEntityManager, ILogicEntityManager {
 
     private List<PhysicsComponent> phyComponents;
-    private List<Movement2DComponent> moveComponents;
-    private List<Position2DComponent> posComponents;
+    private List<MovementComponent> moveComponents;
+    private List<PositionComponent> posComponents;
     private List<LogicComponent> logicComponents;
     
     private Map<Long, PhysicsComponent> phyComponentsMap;
-    private Map<Long, Movement2DComponent> moveComponentsMap;
-    private Map<Long, Position2DComponent> posComponentsMap;
+    private Map<Long, MovementComponent> moveComponentsMap;
+    private Map<Long, PositionComponent> posComponentsMap;
     private Map<Long, LogicComponent> logicComponentsMap;
     
     public EntityManager(){
         phyComponents = new ArrayList<PhysicsComponent>();
-        moveComponents = new ArrayList<Movement2DComponent>();
-        posComponents = new ArrayList<Position2DComponent>();
+        moveComponents = new ArrayList<MovementComponent>();
+        posComponents = new ArrayList<PositionComponent>();
         logicComponents = new ArrayList<LogicComponent>();
         
         phyComponentsMap = new HashMap<Long, PhysicsComponent>();
-        moveComponentsMap = new HashMap<Long, Movement2DComponent>();
-        posComponentsMap = new HashMap<Long, Position2DComponent>();
+        moveComponentsMap = new HashMap<Long, MovementComponent>();
+        posComponentsMap = new HashMap<Long, PositionComponent>();
         logicComponentsMap = new HashMap<Long, LogicComponent>();
     }
     
@@ -48,41 +48,37 @@ public class EntityManager implements IPhysicsEntityManager, ILogicEntityManager
     }
     
     public void addPhysicsComponent(PhysicsComponent component){
-        this.phyComponentsMap.put(component.GetID(),component);
+        this.phyComponentsMap.put(component.getID(),component);
         this.phyComponents.add(component);
         Collections.sort(this.phyComponents);
     }
 
-    @Override
-    public List<Movement2DComponent> getMovement2DComponents() {
-        List<Movement2DComponent> components = new ArrayList<Movement2DComponent>(moveComponents);
+    public List<MovementComponent> getMovementComponents() {
+        List<MovementComponent> components = new ArrayList<MovementComponent>(moveComponents);
         return components;
     }
 
-    @Override
-    public Movement2DComponent getMovement2DComponent(long id) {
+    public MovementComponent getMovementComponent(long id) {
         return moveComponentsMap.get(id);
     }
     
-    public void addMovement2DComponent(Movement2DComponent component){
-        this.moveComponentsMap.put(component.GetID(),component);
+    public void addMovementComponent(MovementComponent component){
+        this.moveComponentsMap.put(component.getID(),component);
         this.moveComponents.add(component);
         Collections.sort(this.moveComponents);
     }
 
-    @Override
-    public List<Position2DComponent> getPosition2DComponents() {
-        List<Position2DComponent> components = new ArrayList<Position2DComponent>(posComponents);
+    public List<PositionComponent> getPositionComponents() {
+        List<PositionComponent> components = new ArrayList<PositionComponent>(posComponents);
         return components;
     }
 
-    @Override
-    public Position2DComponent getPosition2DComponent(long id) {
+    public PositionComponent getPositionComponent(long id) {
         return posComponentsMap.get(id);
     }
     
-    public void addPosition2DComponent(Position2DComponent component){
-        this.posComponentsMap.put(component.GetID(),component);
+    public void addPositionComponent(PositionComponent component){
+        this.posComponentsMap.put(component.getID(),component);
         this.posComponents.add(component);
         Collections.sort(this.posComponents);
     }
@@ -99,7 +95,7 @@ public class EntityManager implements IPhysicsEntityManager, ILogicEntityManager
     }
     
     public void addGameLogicComponent(LogicComponent component){
-        this.logicComponentsMap.put(component.GetID(),component);
+        this.logicComponentsMap.put(component.getID(),component);
         this.logicComponents.add(component);
         Collections.sort(this.logicComponents);
     }

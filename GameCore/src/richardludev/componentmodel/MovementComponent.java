@@ -1,10 +1,10 @@
 package richardludev.componentmodel;
 
-public class Movement2DComponent extends ComponentBase{
+public class MovementComponent extends ComponentBase{
 
     private double vx, vy, ax, ay;
     
-    public Movement2DComponent(long id) {
+    public MovementComponent(long id) {
         super(id);
     }
 

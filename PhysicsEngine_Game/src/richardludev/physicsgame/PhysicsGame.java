@@ -12,8 +12,8 @@ import richardludev.physics.PhysicsSystem;
  */
 public class PhysicsGame {
     
-    private static final int TIME_STEP = 50;
-    private static final double TIME_STEP_SEC = 0.001*TIME_STEP;
+    private static final int TIME_STEP_MS = 50;
+    private static final double TIME_STEP_SEC = 0.001*TIME_STEP_MS;
     
     private Frame frame;
     private Canvas canvas;
@@ -21,8 +21,8 @@ public class PhysicsGame {
     private EntityManager entityManager;
     
     private LogicSystem logicSystem;
-    private PhysicsGameGraphicsSystem graphicsSystem;
-    private PhysicsSystem physicsEngine;
+    private GraphicsSystem graphicsSystem;
+    private PhysicsSystem physicsSystem;
 
     public static void main(String[] args) {
         
@@ -36,19 +36,19 @@ public class PhysicsGame {
 
     public void run() {
         
-        PhysicsGameScenarioGenerator.GenerateOrbitScenario(entityManager, physicsEngine);
-        
-        setupLogic();
-        setupPhysics();
+        setupSystems();
         setupUI();
         displayUI();
+        
+        PhysicsGameScenarioGenerator.GenerateOrbitScenario(entityManager, physicsSystem);
         
         runGameLoop();
     }
     
     private void runGameLoop(){
         while(true){
-            physicsEngine.update(TIME_STEP_SEC);
+            logicSystem.update(TIME_STEP_SEC);
+            physicsSystem.update(TIME_STEP_SEC);
             graphicsSystem.update(entityManager);
             try {
                 Thread.sleep(1);
@@ -58,17 +58,13 @@ public class PhysicsGame {
         }
     }
   
-    private void setupLogic(){
+    private void setupSystems(){
         logicSystem = new LogicSystem(entityManager);
-    }
-    
-    private void setupPhysics(){
-        physicsEngine = new PhysicsSystem(entityManager);
+        physicsSystem = new PhysicsSystem(entityManager);
+        graphicsSystem = new GraphicsSystem();
     }
     
     private void setupUI(){
-        graphicsSystem = new PhysicsGameGraphicsSystem();
-        
         frame = new Frame("Physics Engine Game");
         canvas = graphicsSystem.getGameCanvas();
         
