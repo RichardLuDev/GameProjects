@@ -40,7 +40,7 @@ public class PhysicsGame {
         setupUI();
         displayUI();
         
-        PhysicsGameScenarioGenerator.GenerateOrbitScenario(entityManager, physicsSystem);
+        PhysicsGameScenarioGenerator.GenerateWeirdOrbitScenario(entityManager, physicsSystem);
         
         runGameLoop();
     }

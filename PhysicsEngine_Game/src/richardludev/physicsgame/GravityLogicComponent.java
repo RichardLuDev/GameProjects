@@ -14,8 +14,8 @@ public class GravityLogicComponent extends LogicComponent {
     PhysicsSystem physicsSystem;
     
     private static final double MAX_MOVE_DIST = 0.15;
-    private static final double MAX_FORCE = 10;
-    private static final double FORCE_MAG = 100000;
+    private static final double MAX_FORCE = 15;
+    private static final double FORCE_MAG = 50000;
     
     private double timeAccumlation;
     private double pathRadius, pathCenterX, pathCenterY, pathSpeed;
