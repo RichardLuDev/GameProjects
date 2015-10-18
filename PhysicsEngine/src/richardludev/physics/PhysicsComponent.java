@@ -11,11 +11,11 @@ public class PhysicsComponent extends ComponentBase{
     
     private double mass;
     
-    public PhysicsComponent(long id, MovementComponent movementComponent, PositionComponent positionComponent) {
+    public PhysicsComponent(long id) {
         super(id);
 
-        this.moveComponent = movementComponent;
-        this.posComponent = positionComponent;
+        this.moveComponent = null;
+        this.posComponent = null;
     }
 
     public double getMass() {
@@ -30,7 +30,15 @@ public class PhysicsComponent extends ComponentBase{
         return this.moveComponent;
     }
     
+    public void setMovementComponent(MovementComponent movementComponent){
+        this.moveComponent = movementComponent;
+    }
+    
     public PositionComponent getPositionComponent(){
         return this.posComponent;
+    }
+    
+    public void setPositionComponent(PositionComponent positionComponent){
+        this.posComponent = positionComponent;
     }
 }

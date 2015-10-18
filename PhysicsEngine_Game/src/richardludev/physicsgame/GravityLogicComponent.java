@@ -2,7 +2,6 @@ package richardludev.physicsgame;
 
 import java.util.List;
 
-import richardludev.componentmodel.MovementComponent;
 import richardludev.componentmodel.PositionComponent;
 import richardludev.physics.Force;
 import richardludev.physics.PhysicsComponent;

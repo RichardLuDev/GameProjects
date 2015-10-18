@@ -32,7 +32,7 @@ public class PhysicsSystem implements ComponentSystem{
         clearForces();
     }
 
-    private void clearAccelerations(){
+    void clearAccelerations(){
         List<PhysicsComponent> physicsComponents = entityManager.getPhysicsComponents();
         for (PhysicsComponent physicsComponent : physicsComponents){
             physicsComponent.getMovementComponent().setAX(0);
@@ -40,13 +40,13 @@ public class PhysicsSystem implements ComponentSystem{
         }
     }
     
-    private void resolveAccelerations(){
+    void resolveAccelerations(){
         for (TargetForce targetforce : forces){
             applyForceToEntity(targetforce.getTarget(), targetforce.getForce());
         }
     }
 
-    private void resolveVelocities(double timeStep){
+    void resolveVelocities(double timeStep){
         List<PhysicsComponent> physicsComponents = entityManager.getPhysicsComponents();
         
         for (PhysicsComponent physicsComponent : physicsComponents){
@@ -56,7 +56,7 @@ public class PhysicsSystem implements ComponentSystem{
         }
     }
     
-    private void resolvePositions(double timeStep){
+    void resolvePositions(double timeStep){
         List<PhysicsComponent> physicsComponents = entityManager.getPhysicsComponents();
         
         for (PhysicsComponent physicsComponent : physicsComponents){
@@ -67,11 +67,11 @@ public class PhysicsSystem implements ComponentSystem{
         }
     }
     
-    private void clearForces(){
+    void clearForces(){
         this.forces.clear();
     }
     
-    private void applyForceToEntity(Long id, Force force){
+    void applyForceToEntity(Long id, Force force){
         PhysicsComponent phyComponent = entityManager.getPhysicsComponent(id);
         MovementComponent moveComponent = phyComponent.getMovementComponent();
         moveComponent.addToAX(force.getXComp()/phyComponent.getMass());

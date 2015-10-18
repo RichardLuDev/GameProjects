@@ -28,7 +28,10 @@ public class PhysicsGameScenarioGenerator {
            
             MovementComponent moveComponent = new MovementComponent(i);
             PositionComponent posComponent = new PositionComponent(i);
-            PhysicsComponent phyComponent = new PhysicsComponent(i, moveComponent, posComponent);
+            PhysicsComponent phyComponent = new PhysicsComponent(i);
+            
+            phyComponent.setMovementComponent(moveComponent);
+            phyComponent.setPositionComponent(posComponent);
             
             phyComponent.setMass(mass);
             moveComponent.setVY(vy);
@@ -80,7 +83,10 @@ public class PhysicsGameScenarioGenerator {
        
         MovementComponent moveComponent = new MovementComponent(i);
         PositionComponent posComponent = new PositionComponent(i);
-        PhysicsComponent phyComponent = new PhysicsComponent(i, moveComponent, posComponent);
+        PhysicsComponent phyComponent = new PhysicsComponent(i);
+        
+        phyComponent.setMovementComponent(moveComponent);
+        phyComponent.setPositionComponent(posComponent);
         
         phyComponent.setMass(mass);
         moveComponent.setVY(vy);
@@ -118,7 +124,10 @@ public class PhysicsGameScenarioGenerator {
            
             MovementComponent moveComponent = new MovementComponent(i);
             PositionComponent posComponent = new PositionComponent(i);
-            PhysicsComponent phyComponent = new PhysicsComponent(i, moveComponent, posComponent);
+            PhysicsComponent phyComponent = new PhysicsComponent(i);
+            
+            phyComponent.setMovementComponent(moveComponent);
+            phyComponent.setPositionComponent(posComponent);
             
             phyComponent.setMass(mass);
             moveComponent.setVY(vy);
