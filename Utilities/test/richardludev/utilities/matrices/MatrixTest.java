@@ -247,7 +247,7 @@ public class MatrixTest {
     }
     
     @Test
-    public void rotational_positiveAngleTransformVector(){
+    public void rotational_positiveAngle_transformVector(){
         double angle = 1;
         Matrix vector = Matrix.columnVector(dataVector3);
         Matrix rotational = Matrix.rotational(angle);
@@ -300,5 +300,127 @@ public class MatrixTest {
         for(int i = 0; i < expectedData.length; i++){
             Assert.assertArrayEquals(expectedData[i], outputData[i], EPSILON);
         }
+    }
+    
+    @Test
+    public void rotational_positiveAngleAboutPoint_transformVector(){
+        double angle = 1;
+        double dx = 3;
+        double dy = 4.5;
+        Matrix vector = Matrix.columnVector(dataVector3);
+        Matrix rotational = Matrix.rotational(angle, dx, dy);
+        
+        Matrix output = rotational.multiply(vector);
+        
+        Matrix expected = Matrix.columnVector(new double[] {-6.26068, 18.765, 1});
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void translational_nonzero(){
+        double dx = 10;
+        double dy = 39;
+        Matrix output = Matrix.translational(dx, dy);
+        
+        double[][] expectedData = {
+                {1, 0, 10},
+                {0, 1, 39}, 
+                {0, 0, 1}};
+        Matrix expected = new Matrix(expectedData);
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void translational_nonzero_transformVector(){
+        double dx = 10;
+        double dy = 39;
+        Matrix vector = Matrix.columnVector(dataVector3);
+        Matrix translational = Matrix.translational(dx, dy);
+        
+        Matrix output = translational.multiply(vector);
+        
+        Matrix expected = Matrix.columnVector(new double[] {dataVector3[0] + dx, dataVector3[1] + dy, 1});
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void scaling_zero(){
+        double scaleX = 0;
+        double scaleY = 0;
+        Matrix output = Matrix.scaling(scaleX, scaleY);
+        
+        double[][] expectedData = {
+                {0, 0, 0},
+                {0, 0, 0}, 
+                {0, 0, 1}};
+        Matrix expected = new Matrix(expectedData);
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void scaling_zero_transformVector(){
+        double scaleX = 0;
+        double scaleY = 0;
+        Matrix vector = Matrix.columnVector(dataVector3);
+        Matrix scaling = Matrix.scaling(scaleX, scaleY);
+        
+        Matrix output = scaling.multiply(vector);
+        
+        Matrix expected = Matrix.columnVector(new double[] {0, 0, 1});
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void scaling_lessThanOne(){
+        double scaleX = 0.5;
+        double scaleY = 0.4;
+        Matrix output = Matrix.scaling(scaleX, scaleY);
+        
+        double[][] expectedData = {
+                {scaleX, 0,   0},
+                {0,   scaleY, 0}, 
+                {0,   0,   1}};
+        Matrix expected = new Matrix(expectedData);
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void scaling_lessThanOne_transformVector(){
+        double scaleX = 0.5;
+        double scaleY = 0.4;
+        Matrix vector = Matrix.columnVector(dataVector3);
+        Matrix scaling = Matrix.scaling(scaleX, scaleY);
+        
+        Matrix output = scaling.multiply(vector);
+        
+        Matrix expected = Matrix.columnVector(new double[] {dataVector3[0]*scaleX, dataVector3[1]*scaleY, 1});
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void scaling_greaterThanOne(){
+        double scaleX = 10;
+        double scaleY = 5;
+        Matrix output = Matrix.scaling(scaleX, scaleY);
+        
+        double[][] expectedData = {
+                {scaleX, 0,   0},
+                {0,   scaleY, 0}, 
+                {0,   0,   1}};
+        Matrix expected = new Matrix(expectedData);
+        Assert.assertTrue(output.Equals(expected, EPSILON));
+    }
+    
+    @Test
+    public void scaling_greaterThanOne_transformVector(){
+        double scaleX = 10;
+        double scaleY = 5;
+        Matrix vector = Matrix.columnVector(dataVector3);
+        Matrix scaling = Matrix.scaling(scaleX, scaleY);
+        
+        Matrix output = scaling.multiply(vector);
+        
+        Matrix expected = Matrix.columnVector(new double[] {dataVector3[0]*scaleX, dataVector3[1]*scaleY, 1});
+        Assert.assertTrue(output.Equals(expected, EPSILON));
     }
 }
