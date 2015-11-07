@@ -1,10 +1,10 @@
-package richardlude.componentmodel;
+package richardlude.utilities.componentmodel;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import richardludev.componentmodel.MovementComponent;
+import richardludev.utilities.componentmodel.MovementComponent;
 
 public class MovementComponentTest {
 

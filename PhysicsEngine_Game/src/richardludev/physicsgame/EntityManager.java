@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import richardludev.componentmodel.MovementComponent;
-import richardludev.componentmodel.PositionComponent;
 import richardludev.physics.IPhysicsEntityManager;
 import richardludev.physics.PhysicsComponent;
+import richardludev.utilities.componentmodel.MovementComponent;
+import richardludev.utilities.componentmodel.PositionComponent;
 
 public class EntityManager implements IPhysicsEntityManager, ILogicEntityManager {
 

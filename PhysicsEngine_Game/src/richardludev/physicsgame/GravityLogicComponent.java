@@ -2,10 +2,10 @@ package richardludev.physicsgame;
 
 import java.util.List;
 
-import richardludev.componentmodel.PositionComponent;
 import richardludev.physics.Force;
 import richardludev.physics.PhysicsComponent;
 import richardludev.physics.PhysicsSystem;
+import richardludev.utilities.componentmodel.PositionComponent;
 
 public class GravityLogicComponent extends LogicComponent {
 

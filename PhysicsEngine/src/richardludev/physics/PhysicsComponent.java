@@ -1,8 +1,8 @@
 package richardludev.physics;
 
-import richardludev.componentmodel.ComponentBase;
-import richardludev.componentmodel.MovementComponent;
-import richardludev.componentmodel.PositionComponent;
+import richardludev.utilities.componentmodel.ComponentBase;
+import richardludev.utilities.componentmodel.MovementComponent;
+import richardludev.utilities.componentmodel.PositionComponent;
 
 public class PhysicsComponent extends ComponentBase{
     

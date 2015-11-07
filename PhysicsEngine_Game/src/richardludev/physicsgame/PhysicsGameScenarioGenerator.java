@@ -2,10 +2,10 @@ package richardludev.physicsgame;
 
 import java.util.Random;
 
-import richardludev.componentmodel.MovementComponent;
-import richardludev.componentmodel.PositionComponent;
 import richardludev.physics.PhysicsComponent;
 import richardludev.physics.PhysicsSystem;
+import richardludev.utilities.componentmodel.MovementComponent;
+import richardludev.utilities.componentmodel.PositionComponent;
 
 public class PhysicsGameScenarioGenerator {
     

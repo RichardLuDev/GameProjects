@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import richardludev.componentmodel.PositionComponent;
+import richardludev.utilities.componentmodel.PositionComponent;
 
 /**
  * @author Richard Lu

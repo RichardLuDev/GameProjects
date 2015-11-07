@@ -1,4 +1,4 @@
-package richardludev.componentmodel;
+package richardludev.utilities.componentmodel;
 
 public class MovementComponent extends ComponentBase{
 

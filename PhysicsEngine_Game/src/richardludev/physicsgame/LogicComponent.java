@@ -1,6 +1,6 @@
 package richardludev.physicsgame;
 
-import richardludev.componentmodel.ComponentBase;
+import richardludev.utilities.componentmodel.ComponentBase;
 
 public abstract class LogicComponent extends ComponentBase{
 

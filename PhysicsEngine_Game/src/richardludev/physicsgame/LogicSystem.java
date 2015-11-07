@@ -2,7 +2,7 @@ package richardludev.physicsgame;
 
 import java.util.List;
 
-import richardludev.componentmodel.ComponentSystem;
+import richardludev.utilities.componentmodel.ComponentSystem;
 
 public class LogicSystem implements ComponentSystem{
 

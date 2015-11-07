@@ -3,9 +3,9 @@ package richardludev.physics;
 import java.util.ArrayList;
 import java.util.List;
 
-import richardludev.componentmodel.ComponentSystem;
-import richardludev.componentmodel.MovementComponent;
-import richardludev.componentmodel.PositionComponent;
+import richardludev.utilities.componentmodel.ComponentSystem;
+import richardludev.utilities.componentmodel.MovementComponent;
+import richardludev.utilities.componentmodel.PositionComponent;
 
 public class PhysicsSystem implements ComponentSystem{
     
