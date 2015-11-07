@@ -2,8 +2,12 @@ package richardludev.utilities.matrices;
 
 public class Matrix {
     
+    static final double EPSILON = 1E-9;
+    
     private final double[][] data;
     private final int m, n;
+    
+    //Public Methods
     
     public Matrix(int m, int n){
         this.m = m;
@@ -88,29 +92,65 @@ public class Matrix {
         return C;
     }
     
-    public boolean Equals(Matrix other){
+    public Vector2D transform(Vector2D v){
+        if (this.is2DTransformationMatrix()){
+            Vector2D out = new Vector2D();
+            out.x = this.data[0][0]*v.x + this.data[0][1]*v.y + this.data[0][2];
+            out.y = this.data[1][0]*v.x + this.data[1][1]*v.y + this.data[1][2];
+            return out; 
+        }
+        else{
+            throw new IllegalArgumentException("This matrix cannot transform a 2D vector.");
+        }
+    }
+    
+    public Vector2D toVector2D(){
+        if(this.canCastToVector2D()){
+            return new Vector2D(this.data[0][0], this.data[1][0]);
+        }
+        else{
+            throw new IllegalArgumentException("This matrix cannot be cast into a Vector");
+        }
+    }
+    
+    public boolean is2DTransformationMatrix(){
+        //needs to be size 3x3
+        if(this.m != 3 || this.n != 3) return false;
+        
+        //last row needs to have values (0,0,1)
+        if(Math.abs(this.data[2][0]) > EPSILON ) return false;
+        if(Math.abs(this.data[2][1]) > EPSILON ) return false;
+        if(Math.abs(this.data[2][2] - 1) > EPSILON ) return false;
+        return true;
+    }
+    
+    public boolean canCastToVector2D(){
+        //needs to be size 3x1
+        if(this.m != 3 || this.n != 1) return false;
+        
+        //last value needs to be 1
+        if(Math.abs(this.data[2][0] - 1) > EPSILON ) return false;
+        return true;
+    }
+    
+    @Override
+    public boolean equals(Object other){
+        return this.equals((Matrix)other, EPSILON);
+    }
+    
+    public boolean equals(Matrix other, double epsilon){
         if(this.m != other.m) return false;
         if(this.n != other.n) return false;
         
         for(int i = 0; i < this.m; i++){
             for(int j = 0; j < this.n; j++){
-                if(this.data[i][j] != other.data[i][j]) return false;
+                if(Math.abs(this.data[i][j] - other.data[i][j]) > epsilon) return false;
             }
         }
         return true;
     }
     
-    public boolean Equals(Matrix other, double tolerance){
-        if(this.m != other.m) return false;
-        if(this.n != other.n) return false;
-        
-        for(int i = 0; i < this.m; i++){
-            for(int j = 0; j < this.n; j++){
-                if(Math.abs(this.data[i][j] - other.data[i][j]) > tolerance) return false;
-            }
-        }
-        return true;
-    }
+    //Static Helpers
     
     public static Matrix columnVector(double[] data){
         if(data.length <= 0) throw new IllegalArgumentException("The array has no data.");
